@@ -66,9 +66,7 @@ export default function Home() {
         </span>
       </p>
 
-      <h2>
-        A brag doc fixes this <span className="emoji">✨</span>
-      </h2>
+      <h2>A brag doc fixes this</h2>
 
       <p>
         It&apos;s just a running document where you write down your wins as they
@@ -108,10 +106,7 @@ export default function Home() {
         imposter syndrome hits at 3am.
       </div>
 
-      <h2>
-        Things you&apos;ve probably already forgotten{" "}
-        <span className="emoji">🤔</span>
-      </h2>
+      <h2>Things you might have forgotten</h2>
 
       <ul className="checklist">
         <li>
@@ -186,6 +181,7 @@ export default function Home() {
             nohello.net
           </a>
         </p>
+        <p>Share this with someone who undersells themselves</p>
         <p style={{ marginTop: "0.5rem" }}>
           Made by{" "}
           <a
@@ -194,8 +190,15 @@ export default function Home() {
             rel="noopener noreferrer"
           >
             Stephane
-          </a>{" "}
-          • Share this with someone who undersells themselves
+          </a>
+          , author of{" "}
+          <a
+            href="https://blog4ems.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Blog for EMs
+          </a>
         </p>
       </div>
     </div>

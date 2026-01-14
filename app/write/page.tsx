@@ -7,7 +7,7 @@ interface BragDoc {
   name: string;
   role: string;
   period: string;
-  shipped: string[];
+  delivered: string[];
   collaboration: string[];
   growth: string[];
   impact: string[];
@@ -22,7 +22,7 @@ const DEFAULT_DOC: BragDoc = {
   name: "",
   role: "",
   period: new Date().getFullYear().toString(),
-  shipped: [""],
+  delivered: [""],
   collaboration: [""],
   growth: [""],
   impact: [""],
@@ -33,9 +33,9 @@ const DEFAULT_DOC: BragDoc = {
 
 const SECTIONS = [
   {
-    key: "shipped" as const,
+    key: "delivered" as const,
     icon: "🚀",
-    title: "What I Shipped",
+    title: "What I Delivered",
     placeholder:
       "Launched the new checkout flow, reducing cart abandonment by 15%...",
     prompts: [
@@ -129,9 +129,14 @@ export default function WritePage() {
     requestAnimationFrame(() => {
       const hash = window.location.hash.slice(1);
       if (hash) {
-        const sharedData = decompressData(hash);
+        const sharedData = decompressData(hash) as BragDoc & { shipped?: string[] };
         if (sharedData) {
-          setDoc(sharedData);
+          // Migrate old "shipped" key to "delivered"
+          if (sharedData.shipped && !sharedData.delivered) {
+            sharedData.delivered = sharedData.shipped;
+            delete sharedData.shipped;
+          }
+          setDoc({ ...DEFAULT_DOC, ...sharedData });
           setIsSharedView(true);
           setMounted(true);
           return;
@@ -141,7 +146,13 @@ export default function WritePage() {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
         try {
-          setDoc(JSON.parse(stored));
+          const parsed = JSON.parse(stored);
+          // Migrate old "shipped" key to "delivered"
+          if (parsed.shipped && !parsed.delivered) {
+            parsed.delivered = parsed.shipped;
+            delete parsed.shipped;
+          }
+          setDoc({ ...DEFAULT_DOC, ...parsed });
         } catch {
           setDoc(DEFAULT_DOC);
         }
