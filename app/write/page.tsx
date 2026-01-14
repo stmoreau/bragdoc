@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 
 interface BragDoc {
@@ -202,9 +202,14 @@ export default function WritePage() {
     []
   );
 
-  const addListItem = useCallback((field: keyof BragDoc) => {
+  const addListItem = useCallback((field: keyof BragDoc, afterIndex?: number) => {
     setDoc((prev) => {
-      const list = [...(prev[field] as string[]), ""];
+      const list = [...(prev[field] as string[])];
+      if (afterIndex !== undefined) {
+        list.splice(afterIndex + 1, 0, "");
+      } else {
+        list.push("");
+      }
       return { ...prev, [field]: list };
     });
   }, []);
@@ -268,12 +273,17 @@ export default function WritePage() {
     showToastMessage("🗑️ Started fresh");
   }, [showToastMessage]);
 
-  const totalEntries = useMemo(() => {
-    return SECTIONS.reduce(
-      (sum, { key }) => sum + doc[key].filter((s) => s.trim()).length,
-      0
-    );
-  }, [doc]);
+  const reorderListItem = useCallback(
+    (field: keyof BragDoc, fromIndex: number, toIndex: number) => {
+      setDoc((prev) => {
+        const list = [...(prev[field] as string[])];
+        const [removed] = list.splice(fromIndex, 1);
+        list.splice(toIndex, 0, removed);
+        return { ...prev, [field]: list };
+      });
+    },
+    []
+  );
 
   if (!mounted) {
     return (
@@ -362,11 +372,6 @@ export default function WritePage() {
                 disabled={isSharedView}
               />
             </div>
-            {totalEntries > 0 && (
-              <p className="doc-count">
-                {totalEntries} {totalEntries === 1 ? "win" : "wins"} documented
-              </p>
-            )}
           </div>
 
           {/* Sections */}
@@ -379,8 +384,11 @@ export default function WritePage() {
                 onUpdate={(index, value) =>
                   updateListItem(section.key, index, value)
                 }
-                onAdd={() => addListItem(section.key)}
+                onAdd={(afterIndex) => addListItem(section.key, afterIndex)}
                 onRemove={(index) => removeListItem(section.key, index)}
+                onReorder={(fromIndex, toIndex) =>
+                  reorderListItem(section.key, fromIndex, toIndex)
+                }
                 disabled={isSharedView}
               />
             ))}
@@ -405,8 +413,9 @@ interface SectionProps {
   section: (typeof SECTIONS)[number];
   items: string[];
   onUpdate: (index: number, value: string) => void;
-  onAdd: () => void;
+  onAdd: (afterIndex?: number) => void;
   onRemove: (index: number) => void;
+  onReorder: (fromIndex: number, toIndex: number) => void;
   disabled?: boolean;
 }
 
@@ -416,9 +425,12 @@ function Section({
   onUpdate,
   onAdd,
   onRemove,
+  onReorder,
   disabled,
 }: SectionProps) {
   const [showPrompts, setShowPrompts] = useState(false);
+  const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
+  const [dragOverIndex, setDragOverIndex] = useState<number | null>(null);
   const hasContent = items.some((item) => item.trim());
 
   return (
@@ -449,7 +461,37 @@ function Section({
 
       <div className="entries">
         {items.map((item, index) => (
-          <div key={index} className="entry-row">
+          <div
+            key={index}
+            className={`entry-row ${draggedIndex === index ? "dragging" : ""} ${dragOverIndex === index && draggedIndex !== index ? "drag-over" : ""}`}
+            draggable={!disabled}
+            onDragStart={(e) => {
+              setDraggedIndex(index);
+              e.dataTransfer.effectAllowed = "move";
+              e.dataTransfer.setDragImage(e.currentTarget, 20, 20);
+            }}
+            onDragEnd={() => {
+              setDraggedIndex(null);
+              setDragOverIndex(null);
+            }}
+            onDragOver={(e) => {
+              e.preventDefault();
+              e.dataTransfer.dropEffect = "move";
+              if (draggedIndex !== null && draggedIndex !== index) {
+                setDragOverIndex(index);
+              }
+            }}
+            onDragLeave={() => setDragOverIndex(null)}
+            onDrop={(e) => {
+              e.preventDefault();
+              if (draggedIndex !== null && draggedIndex !== index) {
+                onReorder(draggedIndex, index);
+              }
+              setDraggedIndex(null);
+              setDragOverIndex(null);
+            }}
+          >
+            {!disabled && <span className="drag-handle" />}
             <span className="entry-bullet" />
             <textarea
               className="entry-input"
@@ -462,6 +504,38 @@ function Section({
                 const target = e.target as HTMLTextAreaElement;
                 target.style.height = "auto";
                 target.style.height = target.scrollHeight + "px";
+              }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && !e.shiftKey && !disabled) {
+                  e.preventDefault();
+                  const entriesContainer = e.currentTarget.closest(".entries");
+                  onAdd(index);
+                  // Focus the new textarea after React renders
+                  requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                      const textareas = entriesContainer?.querySelectorAll("textarea");
+                      const newTextarea = textareas?.[index + 1] as HTMLTextAreaElement | undefined;
+                      newTextarea?.focus();
+                    });
+                  });
+                }
+                if (e.key === "Backspace" && !disabled && item === "" && index > 0) {
+                  e.preventDefault();
+                  const entriesContainer = e.currentTarget.closest(".entries");
+                  onRemove(index);
+                  // Focus the previous textarea and move cursor to the end
+                  requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                      const textareas = entriesContainer?.querySelectorAll("textarea");
+                      const prevTextarea = textareas?.[index - 1] as HTMLTextAreaElement | undefined;
+                      if (prevTextarea) {
+                        prevTextarea.focus();
+                        prevTextarea.selectionStart = prevTextarea.value.length;
+                        prevTextarea.selectionEnd = prevTextarea.value.length;
+                      }
+                    });
+                  });
+                }
               }}
             />
             {!disabled && items.length > 1 && (
