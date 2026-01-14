@@ -590,7 +590,7 @@ function Section({
       </div>
 
       {!disabled && (
-        <button className="add-entry" onClick={onAdd}>
+        <button className="add-entry" onClick={() => onAdd()}>
           <span className="add-icon">+</span>
           Add another
         </button>
