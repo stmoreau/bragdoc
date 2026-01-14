@@ -16,8 +16,9 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://bragdoc.io"),
   title: "brag doc",
-  description: "Please keep a brag document at work. Your future self will thank you.",
+  description: "Please keep a brag document at work.",
   openGraph: {
     title: "brag doc",
     description: "You did great work this year. You just forgot most of it.",
@@ -39,9 +40,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${spaceMono.variable} ${instrumentSerif.variable}`}
-      >
+      <body className={`${spaceMono.variable} ${instrumentSerif.variable}`}>
         {children}
       </body>
     </html>
