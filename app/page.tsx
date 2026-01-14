@@ -1,14 +1,19 @@
 import Link from "next/link";
+import ShareButton from "./components/ShareButton";
 
 export default function Home() {
   return (
     <div className="container">
-      <h1>brag doc</h1>
-      <p className="tagline">please keep one at work</p>
+      <div className="page-header">
+        <div className="page-header-left">
+          <h1>brag doc</h1>
+          <p className="tagline">please keep one at work</p>
+        </div>
+        <ShareButton />
+      </div>
 
       <h2>
-        Imagine this: it&apos;s performance review season...{" "}
-        <span className="emoji">😰</span>
+        It&apos;s performance review season... <span className="emoji">😰</span>
       </h2>
 
       <div className="scenario">

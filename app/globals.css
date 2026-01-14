@@ -32,6 +32,47 @@ body {
   padding: 2rem 0;
 }
 
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.page-header-left h1 {
+  margin-bottom: 0.25rem;
+}
+
+.page-header-left .tagline {
+  margin-bottom: 0;
+}
+
+.share-btn {
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  padding: 0.4rem 0.75rem;
+  font-family: var(--font-space-mono), monospace;
+  font-size: 0.7rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.share-btn:hover {
+  color: var(--text);
+  border-color: var(--muted);
+}
+
+@media (max-width: 600px) {
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
 h1 {
   font-family: var(--font-instrument-serif), "Instrument Serif", serif;
   font-size: clamp(3rem, 12vw, 6rem);
