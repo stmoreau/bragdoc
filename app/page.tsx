@@ -1,65 +1,217 @@
-import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="container">
+      <h1>brag doc</h1>
+      <p className="tagline">please keep one at work</p>
+
+      <h2>
+        Imagine this: it&apos;s performance review season...{" "}
+        <span className="emoji">😰</span>
+      </h2>
+
+      <div className="scenario">
+        <div className="scenario-header bad">❌ You, without a brag doc</div>
+
+        <div className="message">
+          <div className="avatar">👤</div>
+          <div className="msg-content">
+            <div className="msg-meta">You • Monday 9:47 AM</div>
+            <div className="msg-text">What did I even do this year?</div>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
+
+        <div className="message">
+          <div className="avatar">👤</div>
+          <div className="msg-content">
+            <div className="msg-meta">You • Monday 10:15 AM</div>
+            <div className="msg-text">*scrolls through 11 months of Slack*</div>
+          </div>
+        </div>
+
+        <div className="message">
+          <div className="avatar">👤</div>
+          <div className="msg-content">
+            <div className="msg-meta">You • Monday 2:30 PM</div>
+            <div className="msg-text">
+              I guess I&apos;ll write &quot;supported various initiatives&quot;
+            </div>
+          </div>
+        </div>
+
+        <div className="message">
+          <div className="avatar">🧠</div>
+          <div className="msg-content">
+            <div className="msg-meta">Your brain • Monday 2:31 PM</div>
+            <div className="msg-text thought">
+              You literally led a migration that saved £200k but sure,
+              &quot;supported various initiatives&quot; sounds great
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p>
+        <strong>You did great work this year.</strong> You just forgot 90% of
+        it. That project you rescued in March? Gone. The junior dev you
+        mentored? Poof. The production incident you fixed at 11pm? Your brain
+        deleted it to make room for Netflix plot lines.
+      </p>
+
+      <p>
+        Your manager doesn&apos;t remember either.{" "}
+        <span className="highlight">
+          They have 8 other people to think about.
+        </span>
+      </p>
+
+      <h2>
+        A brag doc fixes this <span className="emoji">✨</span>
+      </h2>
+
+      <p>
+        It&apos;s just a running document where you write down your wins as they
+        happen. Takes 2 minutes. Do it every Friday. That&apos;s it.
+      </p>
+
+      <div className="scenario">
+        <div className="scenario-header good">✅ You, with a brag doc</div>
+
+        <div className="message">
+          <div className="avatar">👤</div>
+          <div className="msg-content">
+            <div className="msg-meta">You • Every Friday, 5 mins</div>
+            <div className="msg-text">
+              • Led API migration, reduced latency 40%
+              <br />
+              • Mentored Jamie through first on-call rotation
+              <br />• Fixed payment bug affecting 2k users
+            </div>
+          </div>
+        </div>
+
+        <div className="message">
+          <div className="avatar">👤</div>
+          <div className="msg-content">
+            <div className="msg-meta">You • Review season</div>
+            <div className="msg-text">
+              *opens doc* oh right, I&apos;m actually quite good at my job
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="note">
+        <strong>Tip:</strong> Your brag doc isn&apos;t just for reviews. Use it
+        for 1:1s with your manager, salary negotiations, job interviews, or when
+        imposter syndrome hits at 3am.
+      </div>
+
+      <h2>
+        Things you&apos;ve probably already forgotten{" "}
+        <span className="emoji">🤔</span>
+      </h2>
+
+      <ul className="checklist">
+        <li>
+          <span className="check">□</span> That bug you fixed that was blocking
+          the whole team
+        </li>
+        <li>
+          <span className="check">□</span> The meeting where you asked the
+          question everyone was thinking
+        </li>
+        <li>
+          <span className="check">□</span> Documentation you wrote that saved
+          someone hours
+        </li>
+        <li>
+          <span className="check">□</span> The time you stayed late to help a
+          colleague
+        </li>
+        <li>
+          <span className="check">□</span> Process improvements you suggested
+          (that actually got implemented)
+        </li>
+        <li>
+          <span className="check">□</span> Cross-team collaboration you
+          initiated
+        </li>
+        <li>
+          <span className="check">□</span> That customer issue you went above
+          and beyond to resolve
+        </li>
+        <li>
+          <span className="check">□</span> Skills you learned and applied
+        </li>
+      </ul>
+
+      <p>
+        If you checked even one of these,{" "}
+        <span className="highlight">you have unbrag-documented wins.</span>
+      </p>
+
+      {/* CTA to start writing */}
+      <div className="cta-main">
+        <h2>
+          Ready to start? <span className="emoji">📝</span>
+        </h2>
+        <p>
+          Your brag doc saves automatically to your browser. Export it anytime,
+          or share it with a link.
+        </p>
+        <Link href="/write" className="btn btn-large">
+          Start your brag doc →
+        </Link>
+      </div>
+
+      <div className="cta">
+        <h3>Prefer Google Docs?</h3>
+        <p style={{ marginBottom: "1.5rem", color: "var(--muted)" }}>
+          Want your doc in the cloud instead?
+        </p>
+        <a
+          href="https://docs.google.com/document/create"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn btn-secondary"
+        >
+          Open a Google Doc →
+        </a>
+      </div>
+
+      <div className="footer">
+        <p>
+          Inspired by{" "}
           <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+            href="https://jvns.ca/blog/brag-documents/"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
+            Julia Evans&apos; brag documents
+          </a>{" "}
+          and the legendary{" "}
           <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+            href="https://nohello.net"
             target="_blank"
             rel="noopener noreferrer"
           >
-            Documentation
+            nohello.net
           </a>
-        </div>
-      </main>
+        </p>
+        <p style={{ marginTop: "0.5rem" }}>
+          Made by{" "}
+          <a
+            href="https://www.linkedin.com/in/stefmoreau"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Stephane
+          </a>{" "}
+          • Share this with someone who undersells themselves
+        </p>
+      </div>
     </div>
   );
 }
