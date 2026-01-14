@@ -36,7 +36,8 @@ const SECTIONS = [
     key: "shipped" as const,
     icon: "🚀",
     title: "What I Shipped",
-    placeholder: "Launched the new checkout flow, reducing cart abandonment by 15%...",
+    placeholder:
+      "Launched the new checkout flow, reducing cart abandonment by 15%...",
     prompts: [
       "What features or projects did you deliver?",
       "What deadlines did you meet or beat?",
@@ -69,7 +70,8 @@ const SECTIONS = [
     key: "impact" as const,
     icon: "📈",
     title: "Impact I Made",
-    placeholder: "Reduced API latency by 40%, improving user satisfaction scores...",
+    placeholder:
+      "Reduced API latency by 40%, improving user satisfaction scores...",
     prompts: [
       "What metrics improved because of you?",
       "What money did you save or help generate?",
@@ -80,7 +82,8 @@ const SECTIONS = [
     key: "feedback" as const,
     icon: "💬",
     title: "Recognition I Received",
-    placeholder: "\"Thanks for jumping in on the outage - you really saved us\" - CTO...",
+    placeholder:
+      '"Thanks for jumping in on the outage - you really saved us" - CTO...',
     prompts: [
       "What positive feedback did you receive?",
       "What shoutouts or awards did you get?",
@@ -374,15 +377,15 @@ export default function WritePage() {
 
           {/* Document footer */}
           <div className="doc-footer">
-            <p>
-              Remember: You did great work. Don&apos;t let yourself forget it.
-            </p>
+            <p>You did great work. Don&apos;t let yourself forget it.</p>
           </div>
         </div>
       </main>
 
       {/* Toast */}
-      <div className={`toast ${showToast ? "visible" : ""}`}>{toastMessage}</div>
+      <div className={`toast ${showToast ? "visible" : ""}`}>
+        {toastMessage}
+      </div>
     </div>
   );
 }
