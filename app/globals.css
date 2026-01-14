@@ -413,27 +413,25 @@ p {
     opacity: 1;
 }
 
-.cta {
-    margin-top: 2rem;
-    padding: 1.5rem;
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: 12px;
+.start-section {
+    margin-top: 3rem;
     text-align: center;
 }
 
-.cta h3 {
-    font-family: var(--font-instrument-serif), 'Instrument Serif', serif;
-    font-size: 1.2rem;
-    font-weight: 400;
-    margin-bottom: 0.75rem;
+.start-note {
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    color: var(--muted);
 }
 
-.cta-buttons {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    flex-wrap: wrap;
+.start-note a {
+    color: var(--muted);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.start-note a:hover {
+    color: var(--accent);
 }
 
 .btn {
@@ -489,31 +487,6 @@ p {
     font-style: normal;
 }
 
-/* Main CTA */
-.cta-main {
-    margin-top: 3rem;
-    padding: 2rem;
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    text-align: center;
-}
-
-.cta-main h2 {
-    margin: 0 0 0.75rem 0;
-    font-size: 1.5rem;
-}
-
-.cta-main p {
-    color: var(--muted);
-    margin-bottom: 1.25rem;
-    font-size: 0.9rem;
-}
-
-.btn-large {
-    padding: 0.875rem 2rem;
-    font-size: 0.9rem;
-}
 
 /* ========================================
    WRITE PAGE - Premium Writing Experience
@@ -521,7 +494,7 @@ p {
 
 .write-page {
     min-height: 100vh;
-    background: linear-gradient(180deg, #0a0a0a 0%, #111 100%);
+    background: linear-gradient(180deg, #0d0d0d 0%, #151515 100%);
     padding: 0;
 }
 
@@ -684,34 +657,31 @@ p {
 
 /* Main Content Area */
 .write-main {
-    max-width: 720px;
+    max-width: 900px;
     margin: 0 auto;
-    padding: 100px 2rem 4rem;
+    padding: 90px 2rem 4rem;
 }
 
 /* The Document */
 .document {
-    background: linear-gradient(180deg, #1a1a1a 0%, #141414 100%);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.04);
     border-radius: 16px;
     padding: 3rem;
-    box-shadow:
-        0 0 0 1px rgba(255, 255, 255, 0.02),
-        0 20px 50px -10px rgba(0, 0, 0, 0.5),
-        0 0 100px -20px rgba(255, 212, 59, 0.1);
+    box-shadow: 0 0 80px rgba(255, 255, 255, 0.02);
 }
 
 /* Document Header */
 .doc-header {
     text-align: center;
-    margin-bottom: 3rem;
-    padding-bottom: 2rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    margin-bottom: 4rem;
+    padding-bottom: 0;
+    border-bottom: none;
 }
 
 .doc-name {
     font-family: var(--font-instrument-serif), serif;
-    font-size: clamp(2rem, 6vw, 3rem);
+    font-size: clamp(2.5rem, 8vw, 4rem);
     font-weight: 400;
     background: transparent;
     border: none;
@@ -719,12 +689,12 @@ p {
     text-align: center;
     width: 100%;
     padding: 0;
-    margin-bottom: 0.75rem;
-    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+    letter-spacing: -0.03em;
 }
 
 .doc-name::placeholder {
-    color: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.25);
 }
 
 .doc-name:focus {
@@ -735,25 +705,25 @@ p {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 1rem;
+    gap: 1.5rem;
     flex-wrap: wrap;
 }
 
 .doc-role,
 .doc-period {
     font-family: var(--font-space-mono), monospace;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     background: transparent;
     border: none;
-    border-bottom: 1px dashed rgba(255, 255, 255, 0.15);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     color: var(--muted);
     text-align: center;
-    padding: 0.25rem 0;
+    padding: 0.5rem 0;
     transition: all 0.2s;
 }
 
-.doc-role { width: 180px; }
-.doc-period { width: 70px; }
+.doc-role { width: 200px; }
+.doc-period { width: 80px; }
 
 .doc-role:focus,
 .doc-period:focus {
@@ -764,140 +734,151 @@ p {
 
 .doc-role::placeholder,
 .doc-period::placeholder {
-    color: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.3);
 }
 
 .meta-dot {
-    color: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.15);
+    font-size: 0.5rem;
 }
 
 .doc-count {
-    margin-top: 1.25rem;
-    font-size: 0.8rem;
-    color: var(--accent);
-    letter-spacing: 0.1em;
+    margin-top: 1.5rem;
+    font-size: 0.75rem;
+    color: var(--green);
+    letter-spacing: 0.15em;
     text-transform: uppercase;
+    opacity: 0.8;
 }
 
 /* Sections */
 .doc-sections {
     display: flex;
     flex-direction: column;
-    gap: 2.5rem;
+    gap: 0;
 }
 
 .doc-section {
-    padding: 1.5rem;
+    padding: 2rem;
+    margin: 0 -1rem;
     border-radius: 12px;
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid transparent;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     transition: all 0.3s;
 }
 
+.doc-section:last-child {
+    border-bottom: none;
+}
+
 .doc-section:hover {
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(255, 255, 255, 0.015);
 }
 
 .doc-section.has-content {
-    border-color: rgba(255, 212, 59, 0.1);
-    background: rgba(255, 212, 59, 0.02);
+    background: rgba(255, 255, 255, 0.02);
 }
 
 .section-header {
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    margin-bottom: 0.75rem;
+    margin-bottom: 1.25rem;
 }
 
 .section-icon {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
+    opacity: 0.9;
 }
 
 .section-title {
     font-family: var(--font-instrument-serif), serif;
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     font-weight: 400;
     font-style: normal;
     margin: 0;
     color: var(--text);
+    letter-spacing: -0.01em;
 }
 
 /* Prompts */
 .prompts-btn {
     background: none;
     border: none;
-    color: var(--accent);
+    color: var(--muted);
     font-family: var(--font-space-mono), monospace;
     font-size: 0.7rem;
     cursor: pointer;
     padding: 0;
-    margin-bottom: 1rem;
-    opacity: 0.7;
-    transition: opacity 0.2s;
+    margin-bottom: 1.25rem;
+    opacity: 0.6;
+    transition: all 0.2s;
     text-transform: uppercase;
     letter-spacing: 0.1em;
 }
 
 .prompts-btn:hover {
     opacity: 1;
+    color: var(--accent);
 }
 
 .prompts-box {
-    background: rgba(255, 212, 59, 0.05);
-    border-left: 2px solid var(--accent);
-    border-radius: 0 8px 8px 0;
-    padding: 1rem 1.25rem;
-    margin-bottom: 1.25rem;
+    background: rgba(255, 255, 255, 0.02);
+    border-left: 2px solid rgba(255, 212, 59, 0.4);
+    border-radius: 0 6px 6px 0;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1.5rem;
 }
 
 .prompt {
     font-size: 0.85rem;
     color: var(--muted);
     margin: 0;
-    padding: 0.35rem 0;
-    line-height: 1.5;
+    padding: 0.4rem 0;
+    line-height: 1.6;
 }
 
 .prompt::before {
-    content: "→ ";
-    color: var(--accent);
-    opacity: 0.5;
+    content: "";
 }
 
 /* Entries */
 .entries {
     display: flex;
     flex-direction: column;
-    gap: 0.25rem;
+    gap: 0.125rem;
 }
 
 .entry-row {
     display: flex;
     align-items: flex-start;
-    gap: 0.75rem;
-    padding: 0.5rem 0;
-    border-radius: 6px;
-    transition: background 0.2s;
+    gap: 1rem;
+    padding: 0.75rem 0;
+    border-radius: 0;
+    transition: all 0.2s;
 }
 
 .entry-row:hover {
-    background: rgba(255, 255, 255, 0.02);
+    background: transparent;
 }
 
 .entry-bullet {
-    width: 6px;
-    height: 6px;
-    background: var(--accent);
+    width: 8px;
+    height: 8px;
+    background: transparent;
+    border: 2px solid var(--accent);
     border-radius: 50%;
-    margin-top: 0.65rem;
+    margin-top: 0.5rem;
     flex-shrink: 0;
-    opacity: 0.6;
-    transition: opacity 0.2s;
+    opacity: 0.4;
+    transition: all 0.2s;
 }
 
-.entry-row:focus-within .entry-bullet {
+.entry-row:focus-within .entry-bullet,
+.entry-row:hover .entry-bullet {
     opacity: 1;
+    background: var(--accent);
 }
 
 .entry-input {
@@ -918,7 +899,7 @@ p {
 }
 
 .entry-input::placeholder {
-    color: rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.25);
 }
 
 .entry-input:disabled {
@@ -1039,7 +1020,7 @@ p {
     }
 
     .doc-name {
-        font-size: 1.75rem;
+        font-size: 2rem;
     }
 
     .doc-meta {
@@ -1052,14 +1033,19 @@ p {
     }
 
     .doc-section {
-        padding: 1rem;
+        padding: 1.5rem 1rem;
+        margin: 0 -0.5rem;
     }
 
     .section-icon {
-        font-size: 1.25rem;
+        font-size: 1.1rem;
     }
 
     .section-title {
-        font-size: 1.1rem;
+        font-size: 1.25rem;
+    }
+
+    .entry-input {
+        font-size: 0.85rem;
     }
 }

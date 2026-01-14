@@ -152,33 +152,19 @@ export default function Home() {
         <span className="highlight">you have unbrag-documented wins.</span>
       </p>
 
-      {/* CTA to start writing */}
-      <div className="cta-main">
-        <h2>
-          Ready to start? <span className="emoji">📝</span>
-        </h2>
-        <p>
-          Your brag doc saves automatically to your browser. Export it anytime,
-          or share it with a link.
-        </p>
-        <Link href="/write" className="btn btn-large">
+      <div className="start-section">
+        <Link href="/write" className="btn">
           Start your brag doc →
         </Link>
-      </div>
-
-      <div className="cta">
-        <h3>Prefer Google Docs?</h3>
-        <p style={{ marginBottom: "1.5rem", color: "var(--muted)" }}>
-          Want your doc in the cloud instead?
+        <p className="start-note">
+          <a
+            href="https://docs.google.com/document/create"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Or use Google Docs
+          </a>
         </p>
-        <a
-          href="https://docs.google.com/document/create"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="btn btn-secondary"
-        >
-          Open a Google Doc →
-        </a>
       </div>
 
       <div className="footer">
