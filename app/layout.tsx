@@ -22,6 +22,13 @@ export const metadata: Metadata = {
     title: "brag doc",
     description: "You did great work this year. You just forgot most of it.",
     url: "https://bragdoc.io",
+    siteName: "brag doc",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "brag doc",
+    description: "You did great work this year. You just forgot most of it.",
   },
 };
 
