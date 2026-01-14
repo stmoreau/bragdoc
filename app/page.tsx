@@ -186,7 +186,6 @@ export default function Home() {
             nohello.net
           </a>
         </p>
-        <p>Share this with someone who undersells themselves</p>
         <p style={{ marginTop: "0.5rem" }}>
           Made by{" "}
           <a
