@@ -261,7 +261,7 @@ export default function WritePage() {
     a.download = `brag-doc-${doc.period || "export"}.md`;
     a.click();
     URL.revokeObjectURL(url);
-    showToastMessage("📄 Exported to Markdown!");
+    showToastMessage("Exported to Markdown!");
   }, [doc, showToastMessage]);
 
   const importSharedDoc = useCallback(() => {
