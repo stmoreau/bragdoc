@@ -278,6 +278,57 @@ export default function WritePage() {
     showToastMessage("🗑️ Started fresh");
   }, [showToastMessage]);
 
+  const importFromFile = useCallback(() => {
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = ".json";
+    input.onchange = (e) => {
+      const file = (e.target as HTMLInputElement).files?.[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        try {
+          const content = event.target?.result as string;
+          const parsed = JSON.parse(content) as BragDoc & {
+            shipped?: string[];
+          };
+
+          // Migrate old "shipped" key to "delivered"
+          if (parsed.shipped && !parsed.delivered) {
+            parsed.delivered = parsed.shipped;
+            delete parsed.shipped;
+          }
+
+          // Validate required fields exist
+          const imported: BragDoc = {
+            name: parsed.name || "",
+            role: parsed.role || "",
+            period: parsed.period || new Date().getFullYear().toString(),
+            delivered: Array.isArray(parsed.delivered)
+              ? parsed.delivered
+              : [""],
+            collaboration: Array.isArray(parsed.collaboration)
+              ? parsed.collaboration
+              : [""],
+            growth: Array.isArray(parsed.growth) ? parsed.growth : [""],
+            impact: Array.isArray(parsed.impact) ? parsed.impact : [""],
+            feedback: Array.isArray(parsed.feedback) ? parsed.feedback : [""],
+            goals: Array.isArray(parsed.goals) ? parsed.goals : [""],
+            updatedAt: new Date().toISOString(),
+          };
+
+          setDoc(imported);
+          showToastMessage("Imported successfully!");
+        } catch {
+          showToastMessage("Invalid file format");
+        }
+      };
+      reader.readAsText(file);
+    };
+    input.click();
+  }, [showToastMessage]);
+
   const reorderListItem = useCallback(
     (field: keyof BragDoc, fromIndex: number, toIndex: number) => {
       setDoc((prev) => {
@@ -328,6 +379,9 @@ export default function WritePage() {
                 </button>
                 <button className="action-btn" onClick={exportMarkdown}>
                   Export
+                </button>
+                <button className="action-btn" onClick={importFromFile}>
+                  Import
                 </button>
                 <button className="action-btn subtle" onClick={clearDoc}>
                   Clear
