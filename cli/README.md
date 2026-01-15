@@ -2,7 +2,7 @@
 
 Track your wins from the command line.
 
-A simple CLI to maintain your [brag document](https://bragdoc.io) — a running log of your accomplishments at work. Perfect for performance reviews, 1:1s, salary negotiations, or when imposter syndrome hits.
+A simple CLI to maintain your [brag document](https://bragdoc.io) - a running log of your accomplishments at work. Perfect for performance reviews, 1:1s, salary negotiations, or when imposter syndrome hits.
 
 ## Install
 
@@ -67,7 +67,7 @@ You did great work this year. You just forgot 90% of it.
 
 That project you rescued in March? Gone. The junior dev you mentored? Poof. The production incident you fixed at 11pm? Your brain deleted it to make room for Netflix plot lines.
 
-Your manager doesn't remember either — they have 8 other people to think about.
+Your manager doesn't remember either - they have 8 other people to think about.
 
 A brag doc fixes this. Write down your wins as they happen. Takes 2 minutes. Do it every Friday.
 
