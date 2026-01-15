@@ -129,7 +129,9 @@ export default function WritePage() {
     requestAnimationFrame(() => {
       const hash = window.location.hash.slice(1);
       if (hash) {
-        const sharedData = decompressData(hash) as BragDoc & { shipped?: string[] };
+        const sharedData = decompressData(hash) as BragDoc & {
+          shipped?: string[];
+        };
         if (sharedData) {
           // Migrate old "shipped" key to "delivered"
           if (sharedData.shipped && !sharedData.delivered) {
@@ -202,17 +204,20 @@ export default function WritePage() {
     []
   );
 
-  const addListItem = useCallback((field: keyof BragDoc, afterIndex?: number) => {
-    setDoc((prev) => {
-      const list = [...(prev[field] as string[])];
-      if (afterIndex !== undefined) {
-        list.splice(afterIndex + 1, 0, "");
-      } else {
-        list.push("");
-      }
-      return { ...prev, [field]: list };
-    });
-  }, []);
+  const addListItem = useCallback(
+    (field: keyof BragDoc, afterIndex?: number) => {
+      setDoc((prev) => {
+        const list = [...(prev[field] as string[])];
+        if (afterIndex !== undefined) {
+          list.splice(afterIndex + 1, 0, "");
+        } else {
+          list.push("");
+        }
+        return { ...prev, [field]: list };
+      });
+    },
+    []
+  );
 
   const removeListItem = useCallback((field: keyof BragDoc, index: number) => {
     setDoc((prev) => {
@@ -366,7 +371,7 @@ export default function WritePage() {
               <input
                 type="text"
                 className="doc-period"
-                placeholder="2024"
+                placeholder="2026"
                 value={doc.period}
                 onChange={(e) => updateField("period", e.target.value)}
                 disabled={isSharedView}
@@ -396,7 +401,26 @@ export default function WritePage() {
 
           {/* Document footer */}
           <div className="doc-footer">
-            <p>You did great work. Don&apos;t let yourself forget it.</p>
+            <p>
+              Made by{" "}
+              <a
+                href="https://www.linkedin.com/in/stefmoreau"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: "var(--accent)" }}
+              >
+                Stephane
+              </a>
+              , author of{" "}
+              <a
+                href="https://blog4ems.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: "var(--accent)" }}
+              >
+                Blog for EMs
+              </a>
+            </p>
           </div>
         </div>
       </main>
@@ -463,7 +487,11 @@ function Section({
         {items.map((item, index) => (
           <div
             key={index}
-            className={`entry-row ${draggedIndex === index ? "dragging" : ""} ${dragOverIndex === index && draggedIndex !== index ? "drag-over" : ""}`}
+            className={`entry-row ${draggedIndex === index ? "dragging" : ""} ${
+              dragOverIndex === index && draggedIndex !== index
+                ? "drag-over"
+                : ""
+            }`}
             draggable={!disabled}
             onDragStart={(e) => {
               setDraggedIndex(index);
@@ -509,27 +537,39 @@ function Section({
                 const textarea = e.currentTarget;
                 const { selectionStart, value } = textarea;
                 const entriesContainer = textarea.closest(".entries");
-                const textareas = entriesContainer?.querySelectorAll("textarea");
+                const textareas =
+                  entriesContainer?.querySelectorAll("textarea");
 
                 if (e.key === "Enter" && !e.shiftKey && !disabled) {
                   e.preventDefault();
                   onAdd(index);
                   requestAnimationFrame(() => {
                     requestAnimationFrame(() => {
-                      const updated = entriesContainer?.querySelectorAll("textarea");
-                      const newTextarea = updated?.[index + 1] as HTMLTextAreaElement | undefined;
+                      const updated =
+                        entriesContainer?.querySelectorAll("textarea");
+                      const newTextarea = updated?.[index + 1] as
+                        | HTMLTextAreaElement
+                        | undefined;
                       newTextarea?.focus();
                     });
                   });
                 }
 
-                if (e.key === "Backspace" && !disabled && item === "" && index > 0) {
+                if (
+                  e.key === "Backspace" &&
+                  !disabled &&
+                  item === "" &&
+                  index > 0
+                ) {
                   e.preventDefault();
                   onRemove(index);
                   requestAnimationFrame(() => {
                     requestAnimationFrame(() => {
-                      const updated = entriesContainer?.querySelectorAll("textarea");
-                      const prevTextarea = updated?.[index - 1] as HTMLTextAreaElement | undefined;
+                      const updated =
+                        entriesContainer?.querySelectorAll("textarea");
+                      const prevTextarea = updated?.[index - 1] as
+                        | HTMLTextAreaElement
+                        | undefined;
                       if (prevTextarea) {
                         prevTextarea.focus();
                         prevTextarea.selectionStart = prevTextarea.value.length;
@@ -545,11 +585,16 @@ function Section({
                   const isOnFirstLine = !textBeforeCursor.includes("\n");
                   if (selectionStart === 0 || isOnFirstLine) {
                     // Find all textareas across all sections
-                    const allTextareas = document.querySelectorAll(".doc-sections textarea");
-                    const currentIndex = Array.from(allTextareas).indexOf(textarea);
+                    const allTextareas = document.querySelectorAll(
+                      ".doc-sections textarea"
+                    );
+                    const currentIndex =
+                      Array.from(allTextareas).indexOf(textarea);
                     if (currentIndex > 0) {
                       e.preventDefault();
-                      const prevTextarea = allTextareas[currentIndex - 1] as HTMLTextAreaElement;
+                      const prevTextarea = allTextareas[
+                        currentIndex - 1
+                      ] as HTMLTextAreaElement;
                       prevTextarea.focus();
                       prevTextarea.selectionStart = prevTextarea.value.length;
                       prevTextarea.selectionEnd = prevTextarea.value.length;
@@ -563,11 +608,16 @@ function Section({
                   const isOnLastLine = !textAfterCursor.includes("\n");
                   if (selectionStart === value.length || isOnLastLine) {
                     // Find all textareas across all sections
-                    const allTextareas = document.querySelectorAll(".doc-sections textarea");
-                    const currentIndex = Array.from(allTextareas).indexOf(textarea);
+                    const allTextareas = document.querySelectorAll(
+                      ".doc-sections textarea"
+                    );
+                    const currentIndex =
+                      Array.from(allTextareas).indexOf(textarea);
                     if (currentIndex < allTextareas.length - 1) {
                       e.preventDefault();
-                      const nextTextarea = allTextareas[currentIndex + 1] as HTMLTextAreaElement;
+                      const nextTextarea = allTextareas[
+                        currentIndex + 1
+                      ] as HTMLTextAreaElement;
                       nextTextarea.focus();
                       nextTextarea.selectionStart = 0;
                       nextTextarea.selectionEnd = 0;

@@ -168,7 +168,7 @@ export default function Home() {
         <p className="start-note" style={{ marginTop: "0.5rem", marginBottom: 0 }}>
           Prefer the terminal?{" "}
           <code style={{ background: "var(--card-bg)", padding: "0.2rem 0.4rem", borderRadius: "4px" }}>
-            npx bragdoc add &quot;your win&quot;
+            npx bragdoc add delivered &quot;your win&quot;
           </code>
         </p>
         <p className="start-note" style={{ marginTop: "0.25rem" }}>
