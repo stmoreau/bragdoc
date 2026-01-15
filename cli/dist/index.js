@@ -1,33 +1,44 @@
 #!/usr/bin/env node
 import { Command } from "commander";
-import { add } from "./commands/add.js";
+import { add, addInteractive } from "./commands/add.js";
 import { list } from "./commands/list.js";
-import { search } from "./commands/search.js";
 import { exportDoc } from "./commands/export.js";
+import { config } from "./commands/config.js";
 const program = new Command();
 program
     .name("bragdoc")
     .description("Track your wins from the command line")
-    .version("1.0.1");
+    .version("1.1.0");
 program
-    .command("add")
-    .description("Add a new win to your brag doc")
-    .argument("<text>", "What you accomplished")
-    .option("-c, --category <category>", "Category for the entry (e.g., work, side-project)")
-    .action(add);
+    .command("add [section] [text]")
+    .description("Add a win to a section (delivered, collaboration, growth, impact, feedback, goals)")
+    .action((section, text) => {
+    if (!section || !text) {
+        addInteractive();
+    }
+    else {
+        add(section, text);
+    }
+});
 program
-    .command("list")
-    .description("List your wins")
-    .option("-l, --last <n>", "Show only the last n entries", parseInt)
-    .action(list);
-program
-    .command("search")
-    .description("Search your brag doc")
-    .argument("<query>", "Search term")
-    .action(search);
+    .command("list [section]")
+    .description("List your wins (optionally filter by section)")
+    .action((section) => {
+    list(section);
+});
 program
     .command("export")
-    .description("Export your brag doc")
-    .option("-y, --year <year>", "Export only a specific year")
-    .action(exportDoc);
+    .description("Export your brag doc as markdown")
+    .action(() => {
+    exportDoc();
+});
+program
+    .command("config")
+    .description("Set your name, role, and period")
+    .option("-n, --name <name>", "Your name")
+    .option("-r, --role <role>", "Your role/title")
+    .option("-p, --period <period>", "Time period (e.g., 2026)")
+    .action((options) => {
+    config(options);
+});
 program.parse();

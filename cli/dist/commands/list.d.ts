@@ -1,3 +1,1 @@
-export declare function list(options: {
-    last?: number;
-}): void;
+export declare function list(section?: string): void;

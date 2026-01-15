@@ -13,59 +13,53 @@ npm install -g bragdoc
 Or use directly with npx:
 
 ```bash
-npx bragdoc add "Shipped new feature to production"
+npx bragdoc add delivered "Shipped new feature"
 ```
 
 ## Usage
 
-### Add a win
+### Set up your profile
 
 ```bash
-bragdoc add "Led API migration, reduced latency 40%"
+bragdoc config --name "Your Name" --role "Your Role" --period "2026"
 ```
 
-With a category:
+### Add wins to sections
 
 ```bash
-bragdoc add -c work "Shipped new feature"
-bragdoc add -c growth "Completed AWS certification"
+bragdoc add delivered "Shipped new checkout flow"
+bragdoc add collaboration "Mentored Sarah through her first deployment"
+bragdoc add growth "Learned Kubernetes"
+bragdoc add impact "Reduced API latency by 40%"
+bragdoc add feedback "Got shoutout from CTO for handling outage"
+bragdoc add goals "Lead the Q2 reliability initiative"
 ```
+
+**Available sections:**
+
+- 🚀 `delivered` - What you shipped
+- 🤝 `collaboration` - How you helped others
+- 🌱 `growth` - How you grew
+- 📈 `impact` - Impact you made
+- 💬 `feedback` - Recognition you received
+- 🎯 `goals` - What's next
 
 ### List your wins
 
 ```bash
-bragdoc list
+bragdoc list              # Show all sections
+bragdoc list delivered    # Show specific section
 ```
 
-Show only the last 5:
-
-```bash
-bragdoc list --last 5
-```
-
-### Search
-
-```bash
-bragdoc search "migration"
-```
-
-### Export
-
-Export your full brag doc:
+### Export as markdown
 
 ```bash
 bragdoc export
 ```
 
-Export a specific year:
-
-```bash
-bragdoc export --year 2024
-```
-
 ## Storage
 
-Your brag doc is stored as a simple markdown file at `~/.bragdoc.md`. Human-readable, easy to back up, and yours forever.
+Your brag doc is stored as JSON at `~/.bragdoc.json`. Compatible with the web editor at [bragdoc.io/write](https://bragdoc.io/write).
 
 ## Why keep a brag doc?
 

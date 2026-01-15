@@ -1,20 +1,36 @@
 import chalk from "chalk";
 import { readBragDoc, writeBragDoc } from "../storage.js";
-import { addEntryToDoc, BragEntry } from "../parser.js";
+import { findSection, formatSectionList, SECTIONS } from "../sections.js";
 
-export function add(text: string, options: { category?: string }): void {
-  const today = new Date().toISOString().split("T")[0];
+export function add(section: string, text: string): void {
+  const sec = findSection(section);
 
-  const entry: BragEntry = {
-    date: today,
-    text: text,
-    category: options.category,
-  };
+  if (!sec) {
+    console.log(chalk.red(`Unknown section: ${section}`));
+    console.log();
+    console.log("Available sections:");
+    console.log(formatSectionList());
+    console.log();
+    console.log(chalk.dim("Example: bragdoc add delivered \"Shipped new feature\""));
+    process.exit(1);
+  }
 
-  const content = readBragDoc();
-  const updated = addEntryToDoc(content, entry);
-  writeBragDoc(updated);
+  const doc = readBragDoc();
+  doc[sec.key].push(text);
+  writeBragDoc(doc);
 
-  const categoryInfo = options.category ? ` [${options.category}]` : "";
-  console.log(chalk.green("✓") + ` Added:${categoryInfo} ${text}`);
+  console.log(chalk.green("✓") + ` Added to ${sec.icon} ${sec.title}`);
+  console.log(chalk.dim(`  "${text}"`));
+}
+
+export function addInteractive(): void {
+  console.log("Available sections:");
+  console.log(formatSectionList());
+  console.log();
+  console.log(chalk.dim("Usage: bragdoc add <section> \"Your accomplishment\""));
+  console.log();
+  console.log("Examples:");
+  console.log(chalk.cyan("  bragdoc add delivered \"Shipped new checkout flow\""));
+  console.log(chalk.cyan("  bragdoc add growth \"Learned Kubernetes\""));
+  console.log(chalk.cyan("  bragdoc add impact \"Reduced latency by 40%\""));
 }

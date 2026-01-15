@@ -1,29 +1,61 @@
 import chalk from "chalk";
 import { readBragDoc, bragDocExists } from "../storage.js";
-import { parseEntries } from "../parser.js";
-export function list(options) {
+import { findSection, SECTIONS } from "../sections.js";
+export function list(section) {
     if (!bragDocExists()) {
         console.log(chalk.yellow("No brag doc found. Add your first win with:"));
-        console.log(chalk.cyan('  bragdoc add "Your accomplishment"'));
+        console.log(chalk.cyan("  bragdoc add delivered \"Your accomplishment\""));
         return;
     }
-    const content = readBragDoc();
-    let entries = parseEntries(content);
-    if (entries.length === 0) {
-        console.log(chalk.yellow("Your brag doc is empty. Add your first win with:"));
-        console.log(chalk.cyan('  bragdoc add "Your accomplishment"'));
+    const doc = readBragDoc();
+    // If a specific section is requested
+    if (section) {
+        const sec = findSection(section);
+        if (!sec) {
+            console.log(chalk.red(`Unknown section: ${section}`));
+            return;
+        }
+        const items = doc[sec.key];
+        console.log();
+        console.log(chalk.bold(`${sec.icon} ${sec.title}`));
+        console.log();
+        if (items.length === 0) {
+            console.log(chalk.dim("  No entries yet"));
+        }
+        else {
+            items.forEach((item) => {
+                console.log(`  • ${item}`);
+            });
+        }
+        console.log();
         return;
     }
-    // Sort by date descending
-    entries.sort((a, b) => b.date.localeCompare(a.date));
-    if (options.last) {
-        entries = entries.slice(0, options.last);
-    }
-    console.log(chalk.bold("\nYour Wins\n"));
-    for (const entry of entries) {
-        const date = chalk.dim(entry.date);
-        const category = entry.category ? chalk.blue(`[${entry.category}]`) + " " : "";
-        console.log(`  ${date}  ${category}${entry.text}`);
-    }
+    // Show header info
     console.log();
+    if (doc.name || doc.role || doc.period) {
+        if (doc.name)
+            console.log(chalk.bold(doc.name));
+        if (doc.role)
+            console.log(chalk.dim(doc.role));
+        if (doc.period)
+            console.log(chalk.dim(doc.period));
+        console.log();
+    }
+    // Show all sections
+    let hasContent = false;
+    for (const sec of SECTIONS) {
+        const items = doc[sec.key];
+        if (items.length > 0) {
+            hasContent = true;
+            console.log(chalk.bold(`${sec.icon} ${sec.title}`));
+            items.forEach((item) => {
+                console.log(`  • ${item}`);
+            });
+            console.log();
+        }
+    }
+    if (!hasContent) {
+        console.log(chalk.yellow("Your brag doc is empty. Add your first win with:"));
+        console.log(chalk.cyan("  bragdoc add delivered \"Your accomplishment\""));
+    }
 }

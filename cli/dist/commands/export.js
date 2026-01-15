@@ -1,28 +1,33 @@
 import chalk from "chalk";
 import { readBragDoc, bragDocExists, getBragDocPath } from "../storage.js";
-export function exportDoc(options) {
+import { SECTIONS } from "../sections.js";
+export function exportDoc() {
     if (!bragDocExists()) {
         console.log(chalk.yellow("No brag doc found. Add your first win with:"));
-        console.log(chalk.cyan('  bragdoc add "Your accomplishment"'));
+        console.log(chalk.cyan("  bragdoc add delivered \"Your accomplishment\""));
         return;
     }
-    let content = readBragDoc();
-    if (options.year) {
-        // Filter to only show the specified year
-        const yearHeader = `## ${options.year}`;
-        const yearIndex = content.indexOf(yearHeader);
-        if (yearIndex === -1) {
-            console.log(chalk.yellow(`No entries found for year ${options.year}`));
-            return;
+    const doc = readBragDoc();
+    const lines = [];
+    // Header
+    lines.push(`# ${doc.name || "My"}'s Brag Doc`);
+    lines.push("");
+    if (doc.role)
+        lines.push(`**${doc.role}**`);
+    if (doc.period)
+        lines.push(`*${doc.period}*`);
+    lines.push("");
+    // Sections
+    for (const sec of SECTIONS) {
+        const items = doc[sec.key].filter((item) => item.trim());
+        if (items.length > 0) {
+            lines.push(`## ${sec.icon} ${sec.title}`);
+            lines.push("");
+            items.forEach((item) => lines.push(`- ${item}`));
+            lines.push("");
         }
-        // Find the next year section
-        const afterYear = content.slice(yearIndex + yearHeader.length);
-        const nextYearMatch = afterYear.match(/\n## \d{4}/);
-        const yearContent = nextYearMatch
-            ? content.slice(yearIndex, yearIndex + yearHeader.length + nextYearMatch.index)
-            : content.slice(yearIndex);
-        content = `# Brag Doc - ${options.year}\n\n${yearContent.slice(yearHeader.length).trim()}`;
     }
-    console.log(content);
-    console.log(chalk.dim(`\n---\nSource: ${getBragDocPath()}`));
+    console.log(lines.join("\n"));
+    console.log(chalk.dim(`---`));
+    console.log(chalk.dim(`Source: ${getBragDocPath()}`));
 }

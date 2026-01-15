@@ -1,3 +1,1 @@
-export declare function exportDoc(options: {
-    year?: string;
-}): void;
+export declare function exportDoc(): void;
